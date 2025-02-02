@@ -15,6 +15,7 @@ public class HotelDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new GuestConfiguration());
+        //modelBuilder.ApplyConfiguration(new GuestConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(HotelDbContext).Assembly);
     }
 }

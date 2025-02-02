@@ -3,8 +3,8 @@
 ![badge-visual-studio]
 ![MicrosoftSQLServer]
 
-# hexagonal Architecture
-Aplicação dedicada a estudos da arquittetura hexagonal, conforme https://www.udemy.com/share/1079OS3@OdSu2EunMsPP7mqRnP40BQhRHoFevhy8xZRPMD0VkY5slSkM7Hgs2JPjTs_N0zKo/
+# Hexagonal Architecture
+Solução dedicada a estudos da arquittetura hexagonal, conforme https://www.udemy.com/share/1079OS3@OdSu2EunMsPP7mqRnP40BQhRHoFevhy8xZRPMD0VkY5slSkM7Hgs2JPjTs_N0zKo/
 * Entity framework
 * Hexagonal architecture
 * CQRS

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data;
+namespace Data.EnititesConfiguration;
 public class GuestConfiguration : IEntityTypeConfiguration<Guest>
 {
     public void Configure(EntityTypeBuilder<Guest> builder)
