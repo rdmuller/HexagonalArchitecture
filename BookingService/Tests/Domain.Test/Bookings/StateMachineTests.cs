@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Enums;
+﻿using Domain.Booking.Enums;
 
 namespace Domain.Tests.Bookings;
 public class StateMachineTests
@@ -7,29 +6,29 @@ public class StateMachineTests
     [Test]
     public void ShouldAlwaysStartWithCreatedStatus()
     {
-        var booking = new Booking();
+        var booking = new Domain.Booking.Entities.Booking();
 
-        Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Created));
+        Assert.That(booking.Status, Is.EqualTo(Status.Created));
     }
 
     [Test]
     public void ShouldSetStatusToPaidWhenPayingForBookingWithCreatedStatus()
     {
-        var booking = new Booking();
+        var booking = new Domain.Booking.Entities.Booking();
 
-        booking.ChangeStatus(Enums.Action.Pay);
+        booking.ChangeStatus(Guest.Enums.Action.Pay);
 
-        Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Paid));
+        Assert.That(booking.Status, Is.EqualTo(Status.Paid));
     }
 
     [Test]
     public void ShouldSetStatusToFinishedWhenFinishingAPaidBooking()
     {
-        var booking = new Booking();
+        var booking = new Domain.Booking.Entities.Booking();
 
-        booking.ChangeStatus(Enums.Action.Pay);
-        booking.ChangeStatus(Enums.Action.Finish);
+        booking.ChangeStatus(Guest.Enums.Action.Pay);
+        booking.ChangeStatus(Guest.Enums.Action.Finish);
 
-        Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Finished));
+        Assert.That(booking.Status, Is.EqualTo(Status.Finished));
     }
 }

@@ -1,6 +1,8 @@
-﻿using Application.Guest.DTO;
+﻿using Application.Guest;
+using Application.Guest.Dtos;
 using Application.Guest.Requests;
-using Domain.Ports;
+using Domain.Guest.Enums;
+using Domain.Guest.Ports;
 using Moq;
 
 namespace Application.Tests;
@@ -16,7 +18,7 @@ public class GuestManagerTests
     [Test]
     public async Task HappyPath()
     {
-        var guestDto = new GuestDTO
+        var guestDto = new GuestDto
         {
             Name = "Fulano",
             Surname = "Ciclano",
@@ -35,7 +37,7 @@ public class GuestManagerTests
         var fakeRepo = new Mock<IGuestRepository>();
 
         fakeRepo.Setup(x => x.Create(
-            It.IsAny<Domain.Entities.Guest>())).Returns(Task.FromResult(expectedId));
+            It.IsAny<Domain.Guest.Entities.Guest>())).Returns(Task.FromResult(expectedId));
 
         guestManager = new GuestManager(fakeRepo.Object);
 
@@ -53,7 +55,7 @@ public class GuestManagerTests
     [TestCase(null)]
     public async Task Should_Return_InvalidPersonDocumentIdException_WhenDocsAreInvalid(string? docNumber)
     {
-        var guestDto = new GuestDTO
+        var guestDto = new GuestDto
         {
             Name = "Fulano",
             Surname = "Ciclano",
@@ -70,7 +72,7 @@ public class GuestManagerTests
         var fakeRepo = new Mock<IGuestRepository>();
 
         fakeRepo.Setup(x => x.Create(
-            It.IsAny<Domain.Entities.Guest>())).Returns(Task.FromResult(222));
+            It.IsAny<Domain.Guest.Entities.Guest>())).Returns(Task.FromResult(222));
 
         guestManager = new GuestManager(fakeRepo.Object);
 
@@ -90,7 +92,7 @@ public class GuestManagerTests
     [TestCase("Fulano", "surnametest", null)]
     public async Task Should_Return_MissingRequiredInformation_WhenDocsAreInvalid(string? name, string? surname, string? email)
     {
-        var guestDto = new GuestDTO
+        var guestDto = new GuestDto
         {
             Name = name,
             Surname = surname,
@@ -107,7 +109,7 @@ public class GuestManagerTests
         var fakeRepo = new Mock<IGuestRepository>();
 
         fakeRepo.Setup(x => x.Create(
-            It.IsAny<Domain.Entities.Guest>())).Returns(Task.FromResult(222));
+            It.IsAny<Domain.Guest.Entities.Guest>())).Returns(Task.FromResult(222));
 
         guestManager = new GuestManager(fakeRepo.Object);
 
@@ -124,7 +126,7 @@ public class GuestManagerTests
     {
         var fakeRepo = new Mock<IGuestRepository>();
 
-        fakeRepo.Setup(x => x.Get(333)).Returns(Task.FromResult<Domain.Entities.Guest?>(null));
+        fakeRepo.Setup(x => x.Get(333)).Returns(Task.FromResult<Domain.Guest.Entities.Guest?>(null));
 
         guestManager = new GuestManager(fakeRepo.Object);
 
@@ -140,18 +142,18 @@ public class GuestManagerTests
     {
         var fakeRepo = new Mock<IGuestRepository>();
 
-        var fakeGuest = new Domain.Entities.Guest
+        var fakeGuest = new Domain.Guest.Entities.Guest
         {
             Id = 333,
             Name = "Test",
-            DocumentId = new Domain.ValueObjects.PersonId
+            DocumentId = new Domain.Guest.ValueObjects.PersonId
             {
-                PersonIdType = Domain.Enums.DocumentType.DriveLicence,
+                PersonIdType = DocumentType.DriveLicence,
                 IdNumber = "123"
             }
         };
 
-        fakeRepo.Setup(x => x.Get(333)).Returns(Task.FromResult((Domain.Entities.Guest?)fakeGuest));
+        fakeRepo.Setup(x => x.Get(333)).Returns(Task.FromResult((Domain.Guest.Entities.Guest?)fakeGuest));
 
         guestManager = new GuestManager(fakeRepo.Object);
 

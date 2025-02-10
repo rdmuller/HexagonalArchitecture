@@ -9,6 +9,8 @@ public enum ErrorCodes
     INVALID_PERSON_ID = 3,
     MISSING_REQUIRED_INFORMATION = 4,
     INVALID_EMAIL = 5,
+    INVALID_GUEST = 6,
+    ROOM_CANNOT_BE_BOOKED = 7,
 }
 
 public abstract class Response<T>

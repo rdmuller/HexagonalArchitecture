@@ -1,7 +1,7 @@
-﻿using Application.Guest.DTO;
+﻿using Application.Guest.Dtos;
 
 namespace Application.Guest.Requests;
 public class CreateGuestRequest
 {
-    public required GuestDTO Data;
+    public required GuestDto Data;
 }

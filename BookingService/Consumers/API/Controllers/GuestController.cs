@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Application.Guest.DTO;
 using Application;
 using Application.Guest.Ports;
 using Application.Guest.Requests;
 using Application.Guest.Responses;
+using Application.Guest.Dtos;
 
 namespace API.Controllers;
 [Route("api/[controller]")]
@@ -20,7 +20,7 @@ public class GuestController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(GuestDTO guestDTO)
+    public async Task<IActionResult> Post(GuestDto guestDTO)
     {
         var request = new CreateGuestRequest { Data = guestDTO };
 

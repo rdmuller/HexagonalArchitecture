@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Ports;
+﻿using Domain.Guest.Entities;
+using Domain.Guest.Ports;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories;
@@ -17,6 +17,7 @@ public class GuestRepository(HotelDbContext hotelDbContext) : IGuestRepository
 
     public async Task<Guest?> Get(int id)
     {
-        return await _hotelDbContext.Guests.AsNoTracking().FirstOrDefaultAsync(g => g.Id.Equals(id));
+        return await _hotelDbContext.Guests.AsNoTracking()
+            .FirstOrDefaultAsync(g => g.Id.Equals(id));
     }
 }

@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Domain.Booking.Entities;
+using Domain.Guest.Entities;
+using Domain.Room.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data;
