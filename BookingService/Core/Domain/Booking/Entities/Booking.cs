@@ -39,8 +39,8 @@ public class Booking
         this.ValidateState();
 
         var booking = JsonSerializer.Deserialize<Booking>(JsonSerializer.Serialize(this));
-        booking.Room = null;
-        booking.Guest = null;
+        booking!.Room = null;
+        booking!.Guest = null;
 
         if (this.Id == 0)
         {

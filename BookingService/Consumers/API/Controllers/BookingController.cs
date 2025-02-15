@@ -1,8 +1,10 @@
 ﻿using Application;
+using Application.Booking.Commands.Create;
 using Application.Booking.Dtos;
 using Application.Booking.Ports;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Application.Booking.Queries.GetById;
+using Application.Booking.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -12,18 +14,20 @@ public class BookingController : ControllerBase
 {
     private readonly ILogger<GuestController> _logger;
     private readonly IBookingManager _bookingManager;
+    private readonly IMediator _mediator;
 
-    public BookingController(IBookingManager bookingManager, ILogger<GuestController> logger)
+    public BookingController(IBookingManager bookingManager, ILogger<GuestController> logger, IMediator mediator)
     {
         _bookingManager = bookingManager;
         _logger = logger;
+        _mediator = mediator;
     }
 
     [ProducesResponseType(typeof(BookingDto), StatusCodes.Status201Created)]
     [HttpPost]
     public async Task<IActionResult> Post(BookingDto request)
     {
-        var response = await _bookingManager.CreateBooking(request);
+        var response = await _mediator.Send(new CreateBookingCommand { BookingDto = request });
 
         if (response.Success)
             return Created("", response);
@@ -33,5 +37,18 @@ public class BookingController : ControllerBase
 
         _logger.LogError(message: "Response with unknown ErrorCode returned", response);
         return BadRequest(500);
+    }
+
+    [ProducesResponseType(typeof(BookingResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [HttpGet]
+    public async Task<IActionResult> Get(int id)
+    {
+        var response = await _mediator.Send(new GetByIdBookingQuery { Id = id });
+
+        if (!response.Success || response.Data is null || response.Data.Id == 0)
+            return NoContent();
+
+        return Ok(response);
     }
 }

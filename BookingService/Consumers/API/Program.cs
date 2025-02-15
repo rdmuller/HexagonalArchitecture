@@ -1,3 +1,4 @@
+using Application;
 using Application.Booking;
 using Application.Booking.Ports;
 using Application.Guest;
@@ -12,6 +13,8 @@ using Domain.Room.Ports;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDependencyInjectionApplication();
 
 #region IoC
 
